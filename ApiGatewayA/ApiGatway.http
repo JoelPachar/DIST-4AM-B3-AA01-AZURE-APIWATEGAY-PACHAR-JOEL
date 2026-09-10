@@ -1,0 +1,19 @@
+@ApiGateway = https://localhost:7021
+
+### Consultar libros por Gateway
+GET {{ApiGateway}}/api/Libros
+Accept: application/json
+
+###
+
+### Crear libro por Gateway
+POST {{ApiGateway}}/api/Libros
+Content-Type: application/json
+
+{
+  "titulo": "Microservicios con RabbitMQ",
+  "autor": "Juan Perez",
+  "isbn": "9781234567890",
+  "precio": 35.50,
+  "estado": true
+}

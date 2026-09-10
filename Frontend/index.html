@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión Distribuida | Joel Pachar</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --surface: rgba(255,255,255,.88);
+            --surface-strong: #ffffff;
+            --text: #172033;
+            --muted: #697386;
+            --line: #e7ebf2;
+            --primary: #5b6ee1;
+            --primary-dark: #4658c7;
+            --primary-soft: #eef1ff;
+            --success: #3fa77a;
+            --success-soft: #eaf8f2;
+            --danger: #d96c78;
+            --danger-soft: #fff0f2;
+            --warning: #d9a441;
+            --warning-soft: #fff7e7;
+            --shadow: 0 18px 50px rgba(31, 45, 72, .08);
+            --shadow-soft: 0 8px 28px rgba(31, 45, 72, .06);
+            --radius-xl: 28px;
+            --radius-lg: 20px;
+            --radius-md: 14px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(115, 130, 230, .13), transparent 28%),
+                radial-gradient(circle at bottom right, rgba(105, 185, 163, .10), transparent 28%),
+                var(--bg);
+        }
+
+        button, input { font: inherit; }
+
+        .oculto { display: none !important; }
+
+        .app-shell {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 34px 0 46px;
+        }
+
+        /* ---------- LOGIN ---------- */
+        .login-wrap {
+            min-height: calc(100vh - 68px);
+            display: grid;
+            place-items: center;
+        }
+
+        .login-card {
+            width: min(460px, 100%);
+            padding: 42px;
+            border: 1px solid rgba(255,255,255,.9);
+            border-radius: var(--radius-xl);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .brand-mark {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            margin: 0 auto 18px;
+            border-radius: 18px;
+            background: linear-gradient(145deg, #6e80eb, #5264d8);
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+            box-shadow: 0 12px 26px rgba(91,110,225,.25);
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            text-align: center;
+            color: var(--primary);
+            font-size: .78rem;
+            font-weight: 800;
+            letter-spacing: .11em;
+            text-transform: uppercase;
+        }
+
+        .login-card h1 {
+            margin: 0;
+            text-align: center;
+            font-size: clamp(1.8rem, 4vw, 2.2rem);
+            letter-spacing: -.03em;
+        }
+
+        .login-subtitle {
+            margin: 10px 0 30px;
+            text-align: center;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .field {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid var(--line);
+            border-radius: 13px;
+            outline: none;
+            color: var(--text);
+            background: #fbfcfe;
+            transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        input::placeholder { color: #9aa3b2; }
+
+        input:focus {
+            background: #fff;
+            border-color: rgba(91,110,225,.45);
+            box-shadow: 0 0 0 4px rgba(91,110,225,.09);
+        }
+
+        .btn {
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            font-weight: 750;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease, opacity .18s ease;
+        }
+
+        .btn:hover { transform: translateY(-1px); }
+        .btn:active { transform: translateY(0); }
+
+        .btn-primary {
+            width: 100%;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            box-shadow: 0 12px 24px rgba(91,110,225,.22);
+        }
+
+        .btn-primary:hover { box-shadow: 0 16px 30px rgba(91,110,225,.27); }
+
+        /* ---------- DASHBOARD ---------- */
+        .dashboard {
+            display: grid;
+            gap: 22px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 18px;
+            padding: 4px 4px 10px;
+        }
+
+        .topbar-title h1 {
+            margin: 0;
+            font-size: clamp(1.75rem, 3vw, 2.3rem);
+            letter-spacing: -.035em;
+        }
+
+        .topbar-title p {
+            margin: 7px 0 0;
+            color: var(--muted);
+        }
+
+        .user-tools {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .role-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid #dde3f5;
+            border-radius: 999px;
+            background: #f8f9ff;
+            color: #4c5ab3;
+            font-size: .86rem;
+            font-weight: 800;
+        }
+
+        .role-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #7282e9;
+            box-shadow: 0 0 0 4px rgba(114,130,233,.12);
+        }
+
+        .btn-logout {
+            color: #6a4350;
+            background: #fff5f6;
+            border: 1px solid #f3dade;
+        }
+
+        .btn-logout:hover { background: #ffedef; }
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 170px;
+            padding: 30px;
+            border-radius: var(--radius-xl);
+            color: white;
+            background:
+                radial-gradient(circle at 84% 22%, rgba(255,255,255,.17), transparent 22%),
+                radial-gradient(circle at 10% 100%, rgba(255,255,255,.08), transparent 30%),
+                linear-gradient(135deg, #6475dc 0%, #5568d4 54%, #6673c9 100%);
+            box-shadow: 0 18px 38px rgba(76, 92, 186, .18);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 210px;
+            height: 210px;
+            right: -55px;
+            top: -80px;
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 50%;
+        }
+
+        .hero h2 {
+            position: relative;
+            z-index: 1;
+            margin: 0 0 8px;
+            font-size: clamp(1.4rem, 3vw, 1.85rem);
+            letter-spacing: -.025em;
+        }
+
+        .hero p {
+            position: relative;
+            z-index: 1;
+            max-width: 670px;
+            margin: 0;
+            color: rgba(255,255,255,.82);
+            line-height: 1.65;
+        }
+
+        .workspace {
+            display: grid;
+            gap: 22px;
+        }
+
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .card {
+            border: 1px solid rgba(222,227,238,.95);
+            border-radius: var(--radius-lg);
+            background: rgba(255,255,255,.84);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .form-card {
+            padding: 22px;
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .card-heading h3 {
+            margin: 0;
+            font-size: 1.02rem;
+        }
+
+        .card-heading p {
+            margin: 5px 0 0;
+            color: var(--muted);
+            font-size: .88rem;
+        }
+
+        .mini-tag {
+            padding: 6px 9px;
+            border-radius: 999px;
+            background: var(--primary-soft);
+            color: #5967bc;
+            font-size: .72rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .mini-tag.editing {
+            background: var(--warning-soft);
+            color: #9a6a17;
+        }
+
+        .form-card input + input { margin-top: 10px; }
+
+        .form-card .btn {
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .btn-success {
+            color: #2d7458;
+            background: var(--success-soft);
+            border: 1px solid #d9eee5;
+        }
+
+        .btn-success:hover { background: #e0f5ec; }
+
+        .btn-warning {
+            color: #94691d;
+            background: var(--warning-soft);
+            border: 1px solid #f4e4bd;
+        }
+
+        .btn-danger {
+            color: #a54d5b;
+            background: var(--danger-soft);
+            border: 1px solid #f3d6db;
+        }
+
+        .toolbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-title {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        .toolbar-actions .btn {
+            color: #5260b5;
+            background: #f7f8ff;
+            border: 1px solid #e0e4f6;
+        }
+
+        .toolbar-actions .btn:hover { background: #f0f2ff; }
+
+        #mensajeFeedback,
+        #mensajeLogin {
+            min-height: 0;
+            border-radius: 12px;
+            font-weight: 750;
+        }
+
+        #mensajeFeedback:empty,
+        #mensajeLogin:empty {
+            display: none;
+        }
+
+        .error,
+        .exito {
+            padding: 12px 14px;
+        }
+
+        .error {
+            color: #934652;
+            background: #fff1f3;
+            border: 1px solid #f4d8dd;
+        }
+
+        .exito {
+            color: #31745b;
+            background: #edf9f4;
+            border: 1px solid #d8eee4;
+        }
+
+        .table-card {
+            overflow: hidden;
+        }
+
+        .table-card-header {
+            padding: 21px 22px 0;
+        }
+
+        .table-wrap {
+            overflow-x: auto;
+            padding: 7px 8px 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 7px;
+            min-width: 620px;
+        }
+
+        th {
+            padding: 0 14px 5px;
+            text-align: left;
+            color: #8a93a4;
+            font-size: .74rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            font-weight: 800;
+            background: transparent;
+            border: 0;
+        }
+
+        td {
+            padding: 13px 14px;
+            background: #fbfcfe;
+            border-top: 1px solid #edf0f5;
+            border-bottom: 1px solid #edf0f5;
+            color: #39445a;
+        }
+
+        td:first-child {
+            border-left: 1px solid #edf0f5;
+            border-top-left-radius: 13px;
+            border-bottom-left-radius: 13px;
+            color: #687287;
+            font-weight: 750;
+        }
+
+        td:last-child {
+            border-right: 1px solid #edf0f5;
+            border-top-right-radius: 13px;
+            border-bottom-right-radius: 13px;
+        }
+
+        tr:hover td {
+            background: #f8f9fe;
+            border-color: #e5e8f4;
+        }
+
+        td .btn {
+            padding: 8px 11px;
+            margin: 0 3px 0 0;
+            font-size: .8rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #8b94a5;
+            padding: 30px !important;
+        }
+
+        @media (max-width: 780px) {
+            .app-shell {
+                width: min(100% - 24px, 1180px);
+                padding-top: 18px;
+            }
+            .login-card {
+                padding: 28px 22px;
+            }
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+            .user-tools {
+                justify-content: flex-start;
+            }
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero { padding: 24px; }
+        }
+
+        @media (max-width: 520px) {
+            .toolbar {
+                align-items: stretch;
+                flex-direction: column;
+            }
+            .toolbar-actions {
+                width: 100%;
+            }
+            .toolbar-actions .btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="app-shell">
+        <!-- Login -->
+        <section id="loginPanel" class="login-wrap">
+            <div class="login-card">
+                <div class="brand-mark">G</div>
+                <p class="eyebrow">Gestión distribuida</p>
+                <h1>Acceso al sistema</h1>
+                <p class="login-subtitle">Ingresa para administrar vehículos y categorías desde un espacio limpio y centralizado.</p>
+                <div class="field">
+                    <input type="text" id="usuario" placeholder="Usuario (ej. admin)" autocomplete="username">
+                </div>
+                <div class="field">
+                    <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password">
+                </div>
+                <button onclick="hacerLogin()" class="btn btn-primary">Ingresar al panel</button>
+                <div id="mensajeLogin" style="margin-top:14px;"></div>
+            </div>
+        </section>
+
+        <!-- Dashboard -->
+        <section id="sistemaPanel" class="dashboard oculto">
+            <header class="topbar">
+                <div class="topbar-title">
+                    <h1>Panel de control</h1>
+                    <p>Gestiona la información del sistema desde un solo lugar.</p>
+                </div>
+                <div class="user-tools">
+                    <div class="role-pill">
+                        <span class="role-dot"></span>
+                        <span id="rolUsuario"></span>
+                    </div>
+                    <button onclick="verPermisos()" class="btn" style="color:#5663af;background:#fff;border:1px solid #e1e5f2;">Permisos</button>
+                    <button onclick="cerrarSesion()" class="btn btn-logout">Cerrar sesión</button>
+                </div>
+            </header>
+
+            <section class="hero">
+                <h2>Todo bajo control, sin ruido visual.</h2>
+                <p>Consulta tus registros, administra categorías y añade vehículos con una interfaz más clara, espaciosa y orientada a trabajo diario.</p>
+            </section>
+
+            <!-- Administración -->
+            <div id="panelAdmin" class="admin-grid oculto">
+                <article class="card form-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Nuevo vehículo</h3>
+                            <p>Registra una unidad en el sistema.</p>
+                        </div>
+                        <span class="mini-tag">Vehículos</span>
+                    </div>
+                    <input type="text" id="marcaVehiculo" placeholder="Marca">
+                    <input type="text" id="modeloVehiculo" placeholder="Modelo">
+                    <input type="text" id="placaVehiculo" placeholder="Placa">
+                    <input type="number" id="anioVehiculo" placeholder="Año">
+                    <input type="number" id="idCategoriaVehiculo" placeholder="ID de la Categoría">
+                    <button onclick="agregarVehiculo()" class="btn btn-success">Agregar vehículo</button>
+                </article>
+
+                <article class="card form-card">
+                    <div class="card-heading">
+                        <div>
+                            <h3>Categoría</h3>
+                            <p>Actualiza o crea una categoría.</p>
+                        </div>
+                        <span id="modoEdicionCat" class="mini-tag editing oculto">Modo edición</span>
+                    </div>
+                    <input type="hidden" id="idCategoria">
+                    <input type="text" id="nombreCategoria" placeholder="Nombre">
+                    <input type="text" id="descCategoria" placeholder="Descripción">
+                    <button id="btnGuardarCat" onclick="guardarCategoria()" class="btn btn-success">Agregar categoría</button>
+                </article>
+            </div>
+
+            <section class="workspace">
+                <div class="toolbar">
+                    <div>
+                        <h3 class="toolbar-title">Registros</h3>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button onclick="listarVehiculos()" class="btn">Cargar vehículos</button>
+                        <button onclick="listarCategorias()" class="btn">Cargar categorías</button>
+                    </div>
+                </div>
+                <div id="mensajeFeedback"></div>
+                <div class="card table-card">
+                    <div class="table-card-header">
+                        <div class="card-heading">
+                            <div>
+                                <h3>Información del sistema</h3>
+                                <p>Los datos aparecerán aquí al consultar cada módulo.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="contenedorTabla" class="table-wrap"></div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <script>
+        const URL_LOGIN = 'http://localhost:5003/api/Auth/login';
+		const URL_VEHICULOS = 'http://localhost:5002/api/Vehiculo';
+		const URL_CATEGORIAS = 'http://localhost:5001/api/Categorias';
+
+        let rolActual = '';
+
+        async function hacerLogin() {
+            const user = document.getElementById('usuario').value;
+            const pass = document.getElementById('password').value;
+            try {
+                const res = await fetch(URL_LOGIN, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ usuario: user, password: pass })
+                });
+                if (res.ok) {
+                    const datos = await res.json();
+                    localStorage.setItem('jwt', datos.token);
+                    localStorage.setItem('rol', datos.rol);
+                    mostrarInterfaz(datos.rol);
+                } else {
+                    mostrarMensaje('mensajeLogin', 'Credenciales incorrectas', 'error');
+                }
+            } catch (e) {
+                mostrarMensaje('mensajeLogin', 'Error de conexión', 'error');
+            }
+        }
+
+        function verPermisos() {
+            if(rolActual === 'Administrador') {
+                alert("PERMISOS DE ADMINISTRADOR:\n- Vehículos: Listar, Agregar.\n- Categorías: Listar, Agregar, Editar, Eliminar.");
+            } else {
+                alert("PERMISOS DE USUARIO:\n- Vehículos: Solo Listar.\n- Categorías: Solo Listar.\nNo puedes modificar registros.");
+            }
+        }
+
+        function mostrarMensaje(elementoId, texto, tipo) {
+            const el = document.getElementById(elementoId);
+            el.innerHTML = texto;
+            el.className = tipo;
+            setTimeout(() => { el.innerHTML = ''; el.className = ''; }, 4000);
+        }
+
+        async function peticionHTTP(url, metodo, cuerpo = null) {
+            const token = localStorage.getItem('jwt');
+            const opciones = { method: metodo, headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } };
+            if (cuerpo) opciones.body = JSON.stringify(cuerpo);
+
+            const respuesta = await fetch(url, opciones);
+            if (respuesta.status === 403) throw new Error("403");
+            if (respuesta.status === 401) throw new Error("401");
+            return respuesta;
+        }
+
+        // --- MÓDULO VEHÍCULOS ---
+        async function listarVehiculos() {
+            try {
+                const res = await peticionHTTP(URL_VEHICULOS, 'GET');
+                const datos = await res.json();
+                generarTablaVehiculos(datos);
+            } catch(e) { manejarError(e); }
+        }
+
+        async function agregarVehiculo() {
+            const cuerpo = { 
+                marca: document.getElementById('marcaVehiculo').value, 
+                modelo: document.getElementById('modeloVehiculo').value,
+                placa: document.getElementById('placaVehiculo').value,
+                anio: parseInt(document.getElementById('anioVehiculo').value),
+                idCategoria: parseInt(document.getElementById('idCategoriaVehiculo').value)
+            };
+            try {
+                await peticionHTTP(URL_VEHICULOS, 'POST', cuerpo);
+                mostrarMensaje('mensajeFeedback', 'Vehículo agregado', 'exito');
+                listarVehiculos();
+            } catch(e) { manejarError(e); }
+        }
+
+        // --- MÓDULO CATEGORÍAS ---
+        async function listarCategorias() {
+            try {
+                const res = await peticionHTTP(URL_CATEGORIAS, 'GET');
+                const datos = await res.json();
+                generarTablaCategorias(datos);
+            } catch(e) { manejarError(e); }
+        }
+
+        async function guardarCategoria() {
+            const id = document.getElementById('idCategoria').value;
+            const cuerpo = { 
+                idCategoria: id ? parseInt(id) : 0, 
+                nombre: document.getElementById('nombreCategoria').value, 
+                descripcion: document.getElementById('descCategoria').value,
+                estado: true 
+            };
+
+            try {
+                if (id) {
+                    await peticionHTTP(`${URL_CATEGORIAS}/${id}`, 'PUT', cuerpo);
+                    mostrarMensaje('mensajeFeedback', 'Categoría actualizada', 'exito');
+                    resetFormularioCategoria();
+                } else {
+                    await peticionHTTP(URL_CATEGORIAS, 'POST', cuerpo);
+                    mostrarMensaje('mensajeFeedback', 'Categoría creada', 'exito');
+                }
+                listarCategorias();
+            } catch(e) { manejarError(e); }
+        }
+
+        function prepararEdicion(id, nombre, desc) {
+            document.getElementById('idCategoria').value = id;
+            document.getElementById('nombreCategoria').value = nombre;
+            document.getElementById('descCategoria').value = desc;
+            document.getElementById('btnGuardarCat').innerText = 'Actualizar Categoría';
+            document.getElementById('btnGuardarCat').className = 'btn btn-warning';
+            document.getElementById('modoEdicionCat').classList.remove('oculto');
+        }
+
+        function resetFormularioCategoria() {
+            document.getElementById('idCategoria').value = '';
+            document.getElementById('nombreCategoria').value = '';
+            document.getElementById('descCategoria').value = '';
+            document.getElementById('btnGuardarCat').innerText = 'Agregar Categoría';
+            document.getElementById('btnGuardarCat').className = 'btn btn-success';
+            document.getElementById('modoEdicionCat').classList.add('oculto');
+        }
+
+        async function eliminarCategoria(id) {
+            if(!confirm(`¿Seguro que deseas eliminar la categoría ID ${id}?`)) return;
+            try {
+                await peticionHTTP(`${URL_CATEGORIAS}/${id}`, 'DELETE');
+                mostrarMensaje('mensajeFeedback', 'Categoría eliminada', 'exito');
+                listarCategorias();
+            } catch(e) { manejarError(e); }
+        }
+
+        // --- UTILIDADES ---
+        function manejarError(error) {
+            if (error.message === "403") mostrarMensaje('mensajeFeedback', 'Acceso Denegado (403): Tu rol no permite esta acción.', 'error');
+            else if (error.message === "401") { alert("Sesión expirada"); cerrarSesion(); }
+            else mostrarMensaje('mensajeFeedback', 'Error en el servidor o red.', 'error');
+        }
+
+        function mostrarInterfaz(rol) {
+            rolActual = rol;
+            document.getElementById('loginPanel').classList.add('oculto');
+            document.getElementById('sistemaPanel').classList.remove('oculto');
+            document.getElementById('rolUsuario').innerText = rol;
+
+            if (rol === 'Administrador') document.getElementById('panelAdmin').classList.remove('oculto');
+            else document.getElementById('panelAdmin').classList.add('oculto');
+        }
+
+        function cerrarSesion() { localStorage.clear(); location.reload(); }
+
+        window.onload = () => {
+            const token = localStorage.getItem('jwt');
+            const rol = localStorage.getItem('rol');
+            if (token && rol) mostrarInterfaz(rol);
+        };
+    </script>
+
+    <script>
+        // Actualización para mostrar todos los campos de Vehículo
+        generarTablaVehiculos = function(datos) {
+            let html = `<table>
+                <thead>
+                    <tr><th>ID</th><th>Marca</th><th>Modelo</th><th>Placa</th><th>Año</th><th>Categoría</th></tr>
+                </thead>
+                <tbody>`;
+
+            if (datos.length === 0) {
+                html += `<tr><td colspan="6" class="empty-state">No hay vehículos registrados.</td></tr>`;
+            }
+
+            datos.forEach(v => {
+                // Maneja si el backend envía el objeto categoría anidado o solo el ID
+                let categoriaStr = 'Sin categoría';
+                if (v.categoria && v.categoria.nombre) {
+                    categoriaStr = v.categoria.nombre;
+                } else if (v.idCategoria) {
+                    categoriaStr = `ID: ${v.idCategoria}`;
+                }
+
+                html += `<tr>
+                    <td>${v.idVehiculo}</td>
+                    <td>${v.marca || '-'}</td>
+                    <td>${v.modelo || '-'}</td>
+                    <td>${v.placa || '-'}</td>
+                    <td>${v.anio || '-'}</td>
+                    <td>${categoriaStr}</td>
+                </tr>`;
+            });
+
+            html += `</tbody></table>`;
+            document.getElementById('contenedorTabla').innerHTML = html;
+        };
+
+        generarTablaCategorias = function(datos) {
+            let html = `<table>
+                <thead>
+                    <tr><th>ID</th><th>Nombre</th><th>Descripción</th>`;
+
+            if (rolActual === 'Administrador') html += `<th>Acciones</th>`;
+            html += `</tr></thead><tbody>`;
+
+            if (datos.length === 0) {
+                const colspan = rolActual === 'Administrador' ? 4 : 3;
+                html += `<tr><td colspan="${colspan}" class="empty-state">No hay categorías registradas.</td></tr>`;
+            }
+
+            datos.forEach(c => {
+                html += `<tr>
+                    <td>${c.idCategoria}</td>
+                    <td>${c.nombre}</td>
+                    <td>${c.descripcion || ''}</td>`;
+
+                if (rolActual === 'Administrador') {
+                    const nom = c.nombre.replace(/'/g, "\\'");
+                    const des = c.descripcion ? c.descripcion.replace(/'/g, "\\'") : '';
+
+                    html += `<td>
+                        <button class="btn btn-warning" onclick="prepararEdicion(${c.idCategoria}, '${nom}', '${des}')">Editar</button>
+                        <button class="btn btn-danger" onclick="eliminarCategoria(${c.idCategoria})">Eliminar</button>
+                    </td>`;
+                }
+
+                html += `</tr>`;
+            });
+
+            html += `</tbody></table>`;
+            document.getElementById('contenedorTabla').innerHTML = html;
+        };
+
+        document.getElementById('password').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') hacerLogin();
+        });
+    </script>
+</body>
+</html>

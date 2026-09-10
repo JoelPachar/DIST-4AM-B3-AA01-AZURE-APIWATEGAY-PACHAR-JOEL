@@ -1,0 +1,7 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@Vehiculo.api_HostAddress = http://localhost:5156
+
+GET {{Vehiculo.api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

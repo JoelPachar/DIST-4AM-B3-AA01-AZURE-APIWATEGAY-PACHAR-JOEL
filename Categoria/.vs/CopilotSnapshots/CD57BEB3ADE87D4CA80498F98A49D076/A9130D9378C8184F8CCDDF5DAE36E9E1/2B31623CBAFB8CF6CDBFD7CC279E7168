@@ -1,0 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Categoria.Api.Data
+{
+    public class LibrosDBContext : DbContext
+    {
+        public LibrosDBContext(DbContextOptions<LibrosDBContext> options) : base(options)
+        {
+        }
+
+        // Se reemplaza Libros por Categoria para mapear la tabla que creamos
+        public DbSet<Categoria.Api.Models.Categoria> Categorias { get; set; }
+    }
+}

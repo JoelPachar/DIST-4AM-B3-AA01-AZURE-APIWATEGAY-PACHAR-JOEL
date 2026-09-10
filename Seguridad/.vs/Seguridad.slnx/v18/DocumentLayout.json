@@ -1,0 +1,90 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|d:\\distribuidas\\deberdistribuidas\\seguridad\\seguridad.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|solutionrelative:seguridad.api\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|d:\\distribuidas\\deberdistribuidas\\seguridad\\seguridad.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|solutionrelative:seguridad.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|d:\\distribuidas\\deberdistribuidas\\seguridad\\seguridad.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|solutionrelative:seguridad.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|d:\\distribuidas\\deberdistribuidas\\seguridad\\seguridad.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{912963C7-9159-6256-5062-3CDB4E7AB503}|Seguridad.api\\Seguridad.api.csproj|solutionrelative:seguridad.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Dockerfile",
+              "RelativeDocumentMoniker": "Seguridad.api\\Dockerfile",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Dockerfile",
+              "RelativeToolTip": "Seguridad.api\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-09-09T20:37:04.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Program.cs",
+              "RelativeDocumentMoniker": "Seguridad.api\\Program.cs",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Program.cs",
+              "RelativeToolTip": "Seguridad.api\\Program.cs",
+              "ViewState": "AgIAAEkAAAAAAAAAAAAwwGAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-07T23:41:42.189Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "Seguridad.api\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "Seguridad.api\\Controllers\\AuthController.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAxwBMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-07T23:40:40.366Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\appsettings.json",
+              "RelativeDocumentMoniker": "Seguridad.api\\appsettings.json",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\Seguridad\\Seguridad.api\\appsettings.json",
+              "RelativeToolTip": "Seguridad.api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-09-07T22:21:53.993Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+﻿using Categoria.Api.Data;
+using Categoria.Api.Data;
+using Categoria.Api.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+
+namespace LibrosA.Api.Controllers
+{
+    // Ruta base: http://localhost:7114/api/categorias
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CategoriasController : ControllerBase
+    {
+        private readonly LibrosDBContext _dbContext;
+
+        // Constructor limpio, sin RabbitMQ
+        public CategoriasController(LibrosDBContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetAllCategorias()
+        {
+            var categorias = await _dbContext.Categorias
+                .AsNoTracking()
+                .ToListAsync();
+
+            return Ok(categorias);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Categoria>> GetCategoriaById(int id)
+        {
+            var categoria = await _dbContext.Categorias
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.IdCategoria == id);
+
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(categoria);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Categoria>> CreateCategoria(Categoria categoria)
+        {
+            _dbContext.Categorias.Add(categoria);
+            await _dbContext.SaveChangesAsync();
+
+            // Retorna un 201 Created y la URL para consultar el nuevo recurso
+            return CreatedAtAction(nameof(GetCategoriaById), new { id = categoria.IdCategoria }, categoria);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategoria(int id, Categoria categoria)
+        {
+            // Verificamos usando IdCategoria
+            if (id != categoria.IdCategoria)
+            {
+                return BadRequest();
+            }
+
+            _dbContext.Entry(categoria).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategoria(int id)
+        {
+            var categoria = await _dbContext.Categorias.FindAsync(id);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Categorias.Remove(categoria);
+            await _dbContext.SaveChangesAsync();
+
+            return NoContent();
+        }
+    }
+}

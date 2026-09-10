@@ -1,0 +1,7 @@
+bin/
+obj/
+.vs/
+.git/
+Dockerfile*
+docker-compose*
+README.mdx

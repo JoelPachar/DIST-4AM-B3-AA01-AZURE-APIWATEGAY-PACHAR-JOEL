@@ -1,0 +1,73 @@
+# VISUAL STUDIO
+.vs/
+**/.vs/
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET - ARCHIVOS GENERADOS
+bin/
+obj/
+
+**/bin/
+**/obj/
+
+Debug/
+Release/
+
+**/Debug/
+**/Release/
+
+# ARCHIVOS TEMPORALES
+*.tmp
+*.temp
+*.log
+*.cache
+
+~$*
+*~
+
+# VISUAL STUDIO CODE / OTROS IDE
+.vscode/
+.idea/
+
+# VARIABLES DE ENTORNO / CREDENCIALES
+.env
+.env.*
+!.env.example
+
+appsettings.Local.json
+appsettings.*.Local.json
+
+
+# SQL SERVER - ARCHIVOS FISICOS Y BACKUPS
+*.mdf
+*.ldf
+*.ndf
+*.bak
+
+# SISTEMA OPERATIVO
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+
+# DOCKER - ARCHIVOS TEMPORALES
+docker-compose.override.yml
+
+
+# PAQUETES / RESULTADOS DE COMPILACION
+*.nupkg
+*.snupkg
+packages/
+
+# COBERTURA Y PRUEBAS
+TestResults/
+coverage/
+coverage.*
+
+# PUBLICACION .NET
+publish/
+**/publish/

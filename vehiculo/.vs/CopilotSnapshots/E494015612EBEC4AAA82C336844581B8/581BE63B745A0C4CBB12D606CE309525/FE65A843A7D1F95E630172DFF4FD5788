@@ -1,0 +1,43 @@
+﻿using Microsoft.EntityFrameworkCore;
+using vehiculo.api.Data;
+
+namespace vehiculo.api
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            // 1. Agregar servicios para los Controladores
+            builder.Services.AddControllers();
+
+            // 2. Configurar el DbContext para Vehiculo
+            builder.Services.AddDbContext<VehiculoDBContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("VehiculoConnection"))
+            );
+
+            // 3. Agregar configuración de Swagger para documentar y probar la API
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            var app = builder.Build();
+
+            // 4. Configurar el pipeline HTTP
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            // 5. Mapear las rutas de los controladores
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}

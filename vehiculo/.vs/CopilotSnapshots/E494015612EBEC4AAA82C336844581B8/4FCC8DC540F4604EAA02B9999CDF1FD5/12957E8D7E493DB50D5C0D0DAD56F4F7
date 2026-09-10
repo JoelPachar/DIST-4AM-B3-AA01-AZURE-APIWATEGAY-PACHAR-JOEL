@@ -1,0 +1,34 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace vehiculo.api.Models
+{
+    [Table("Vehiculo")]
+    public class Vehiculo
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)] // Quita esta línea si tu SQL usa IDENTITY(1,1)
+        [Column("IdVehiculo")]
+        public int IdVehiculo { get; set; }
+
+        [Column("IdCategoria")]
+        public int IdCategoria { get; set; } // Referencia lógica al microservicio de Categorías
+
+        [StringLength(100)]
+        [Column("Marca")]
+        public string Marca { get; set; } = string.Empty;
+
+        [StringLength(100)]
+        [Column("Modelo")]
+        public string Modelo { get; set; } = string.Empty;
+
+        [Column("Precio", TypeName = "decimal(10,2)")]
+        public decimal Precio { get; set; }
+
+        [Column("Stock")]
+        public int Stock { get; set; }
+
+        [Column("Estado")]
+        public bool Estado { get; set; }
+    }
+}

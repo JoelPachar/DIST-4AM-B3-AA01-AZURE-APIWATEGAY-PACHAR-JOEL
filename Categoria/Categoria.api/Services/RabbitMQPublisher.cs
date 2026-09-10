@@ -1,0 +1,68 @@
+﻿using RabbitMQ.Client;
+using Microsoft.Extensions.Configuration;
+using System.Text;
+using System.Text.Json;
+
+namespace Categoria.Api.Services
+{
+    public class RabbitMQPublisher
+    {
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<RabbitMQPublisher> _logger;
+
+        public RabbitMQPublisher(IConfiguration configuration, ILogger<RabbitMQPublisher> logger)
+        {
+            _configuration = configuration;
+            _logger = logger;
+        }
+
+        public async Task PublicarCategoriaCreadaAsync(Categoria.Api.Models.Categoria categoria)
+        {
+            var factory = new ConnectionFactory
+            {
+                HostName = _configuration["RabbitMQ:HostName"],
+                Port = int.Parse(_configuration["RabbitMQ:Port"] ?? "5672"),
+                UserName = _configuration["RabbitMQ:UserName"],
+                Password = _configuration["RabbitMQ:Password"]
+            };
+
+            // Determinar nombres
+            var queueName = _configuration["RabbitMQ:QueueName"] ?? _configuration["RabbitMQ:RoutingKey"] ?? "Deber";
+            var routingKey = _configuration["RabbitMQ:RoutingKey"] ?? queueName;
+
+            try
+            {
+                await using var connection = await factory.CreateConnectionAsync();
+                await using var channel = await connection.CreateChannelAsync();
+
+                // Declarar la cola (idempotente)
+                await channel.QueueDeclareAsync(
+                    queue: queueName,
+                    durable: true,
+                    exclusive: false,
+                    autoDelete: false,
+                    arguments: null
+                );
+
+                var mensaje = JsonSerializer.Serialize(categoria);
+                _logger.LogInformation("Publicando mensaje RabbitMQ a queue='{Queue}' routingKey='{RoutingKey}' payload={Payload}", queueName, routingKey, mensaje);
+
+                var body = Encoding.UTF8.GetBytes(mensaje ?? string.Empty);
+
+                // Publicar usando la sobrecarga asíncrona
+                await channel.BasicPublishAsync(
+                    exchange: "",
+                    routingKey: routingKey,
+                    body: body
+                );
+
+                _logger.LogInformation("Mensaje publicado correctamente (bytes={Bytes})", body.Length);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al publicar mensaje RabbitMQ");
+                throw;
+            }
+        }
+    }
+}

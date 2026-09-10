@@ -1,0 +1,118 @@
+services:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq-compose
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - distribuidos-network
+
+  seguridad:
+    build:
+      context: ./Seguridad/Seguridad.api
+      dockerfile: Dockerfile
+    container_name: seguridad-api-compose
+    ports: 
+      - "5003:8080"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      # Mapeo corregido apuntando al nodo Jwt de tu appsettings.json
+      Jwt__Key: "CLAVE_SECRETA_LOCAL_PARA_PRUEBAS_12345!"
+      Jwt__Issuer: "http://localhost:5000"
+      Jwt__Audience: "http://localhost:5000"
+      Jwt__DurationInMinutes: "60"
+    networks:
+      - distribuidos-network
+
+  categoria:
+    build:
+      context: ./Categoria/Categoria.api
+      dockerfile: Dockerfile
+    container_name: categoria-api-compose
+    ports: 
+      - "5001:8080"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__CategoriaConnection: "Server=host.docker.internal,1433;Database=Categoria;User Id=UserLibroDBA;Password=UserLibroDBA;TrustServerCertificate=True;Encrypt=False;"
+      RabbitMQ__HostName: "rabbitmq"
+      RabbitMQ__Port: "5672"
+      RabbitMQ__UserName: "admin"
+      RabbitMQ__Password: "admin123"
+      Jwt__Key: "CLAVE_SECRETA_LOCAL_PARA_PRUEBAS_12345!"
+      Jwt__Issuer: "http://localhost:5000"
+      Jwt__Audience: "http://localhost:5000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - distribuidos-network
+      
+  vehiculo:
+    build:
+      context: ./vehiculo/vehiculo.api
+      dockerfile: Dockerfile
+    container_name: vehiculo-api-compose
+    ports: 
+      - "5002:8080"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__VehiculoConnection: "Server=host.docker.internal,1433;Database=Vehiculo;User Id=curso4a;Password=curso4a;TrustServerCertificate=True;Encrypt=False;"
+      RabbitMQ__HostName: "rabbitmq"
+      RabbitMQ__Port: "5672"
+      RabbitMQ__UserName: "admin"
+      RabbitMQ__Password: "admin123"
+      Jwt__Key: "CLAVE_SECRETA_LOCAL_PARA_PRUEBAS_12345!" 
+      Jwt__Issuer: "http://localhost:5000"
+      Jwt__Audience: "http://localhost:5000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - distribuidos-network
+
+  apigateway:
+    build:
+      context: ./ApiGatewayA
+      dockerfile: Dockerfile
+    container_name: apigateway-api-compose
+    ports: 
+      - "5000:8080"
+    environment: 
+      ASPNETCORE_ENVIRONMENT: Development
+      ReverseProxy__Clusters__categoriasCluster__Destinations__categoriasDestination__Address: "http://categoria:8080/"
+      ReverseProxy__Clusters__vehiculosCluster__Destinations__vehiculosDestination__Address: "http://vehiculo:8080/"
+      ReverseProxy__Clusters__seguridadCluster__Destinations__seguridadDestination__Address: "http://seguridad:8080/"
+      Jwt__Key: "CLAVE_SECRETA_LOCAL_PARA_PRUEBAS_12345!" 
+      Jwt__Issuer: "http://localhost:5000"
+      Jwt__Audience: "http://localhost:5000"
+    depends_on:
+      - categoria
+      - vehiculo
+      - seguridad
+    networks:
+      - distribuidos-network
+
+  frontend:
+    image: nginx:alpine
+    container_name: frontend-compose
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Frontend/index.html:/usr/share/nginx/html/index.html:ro
+    depends_on:
+      - apigateway
+    networks:
+      - distribuidos-network
+            
+networks:
+  distribuidos-network:
+    driver: bridge

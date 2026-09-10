@@ -1,0 +1,6 @@
+﻿namespace Categoria.api.Services
+{
+    public class RabbitMQPublisher
+    {
+    }
+}

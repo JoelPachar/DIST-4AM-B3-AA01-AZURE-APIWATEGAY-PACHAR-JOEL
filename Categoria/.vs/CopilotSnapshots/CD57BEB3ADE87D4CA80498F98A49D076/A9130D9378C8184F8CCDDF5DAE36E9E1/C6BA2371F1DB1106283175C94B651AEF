@@ -1,0 +1,15 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Categoria.Api.Models;
+
+namespace Categoria.Api.Data
+{
+    public class CategoriaDBContext : DbContext
+    {
+        public CategoriaDBContext(DbContextOptions<CategoriaDBContext> options) : base(options)
+        {
+        }
+
+        // DbSet para la entidad Categoria
+        public DbSet<Categoria> Categorias { get; set; }
+    }
+}

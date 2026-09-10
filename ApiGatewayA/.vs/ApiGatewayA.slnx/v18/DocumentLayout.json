@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|d:\\distribuidas\\deberdistribuidas\\apigatewaya\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|d:\\distribuidas\\deberdistribuidas\\apigatewaya\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|d:\\distribuidas\\deberdistribuidas\\apigatewaya\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|d:\\distribuidas\\deberdistribuidas\\apigatewaya\\apigatway.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|solutionrelative:apigatway.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|d:\\distribuidas\\deberdistribuidas\\apigatewaya\\apigatewaya.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{9E256B2A-320D-4448-1E77-22E34AAECE63}|ApiGatewayA.csproj|solutionrelative:apigatewaya.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ApiGatewayA",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\ApiGatewayA.csproj",
+              "RelativeDocumentMoniker": "ApiGatewayA.csproj",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\ApiGatewayA.csproj",
+              "RelativeToolTip": "ApiGatewayA.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-08-25T01:35:03.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-18T14:01:42.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApiGatway.http",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\ApiGatway.http",
+              "RelativeDocumentMoniker": "ApiGatway.http",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\ApiGatway.http",
+              "RelativeToolTip": "ApiGatway.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-08-18T13:59:58.219Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAADEAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-18T13:40:02.544Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Distribuidas\\DeberDistribuidas\\ApiGatewayA\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAADgAAAAAAAAAAAAqwE8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-08-18T13:33:42.643Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
