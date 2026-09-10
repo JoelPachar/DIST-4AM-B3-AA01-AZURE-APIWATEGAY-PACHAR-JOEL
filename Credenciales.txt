@@ -1,0 +1,20 @@
+credenciales de el usuario
+// es del usuario de la bd de categorías  
+UserLibroDBA:
+UserLibroDBA , 
+
+//usuario de la bd de vehículos
+curso4a:
+w4Vo9~c3Rzv$ , 
+
+//clave del sql del azure 
+sql-deber-vehiculo.database.windows.net
+4P5*w8?#9CWf
+
+//clave admin 
+admin
+1234
+
+//clave usuario
+usuario
+1234
